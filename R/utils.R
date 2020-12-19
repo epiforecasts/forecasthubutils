@@ -1,13 +1,12 @@
 #' @title Dates to Epiweek
 #'
 #' @description
-#' MISSING
-#'
+#' MISSING#'
 #'
 #' @param df A data.frame
 #' @return A data.frame
 #' @importFrom lubridate epiweek
-#' @importFrom dplyr filter group_by, count, left_join mutate
+#' @importFrom dplyr filter group_by count left_join mutate
 #' @importFrom tibble tibble
 #' @export
 
