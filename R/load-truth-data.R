@@ -138,12 +138,11 @@ load_truth_data <- function(countries = c("Germany", "Poland"),
                             national_only = TRUE,
                             cumulative = FALSE) {
 
-  filter_national <- function(data, national_only) {
+  filter_national <- function(data) {
     if (national_only) {
-      return(dplyr::filter(data, location %in% c("GM", "PL", "US")))
-    } else {
-      return(data)
+      data <- dplyr::filter(data, location %in% c("GM", "PL", "US"))
     }
+    return(data)
   }
 
   if (load_from_server) {
@@ -182,9 +181,9 @@ load_truth_data <- function(countries = c("Germany", "Poland"),
       if (cumulative) {
         cumulative_cases_weekly <- incident_cases_weekly %>%
           dplyr::mutate(value = cumsum(value))
-        return(cumulative_cases_weekly)
+        return(filter_national(cumulative_cases_weekly))
       } else {
-        return(incident_cases_weekly)
+        return(filter_national(incident_cases_weekly))
       }
 
       # deaths
@@ -198,9 +197,9 @@ load_truth_data <- function(countries = c("Germany", "Poland"),
       if (cumulative) {
         cumulative_deaths_weekly <- incident_deaths_weekly %>%
           dplyr::mutate(value = cumsum(value))
-        return(cumulative_deaths_weekly)
+        return(filter_national(cumulative_deaths_weekly))
       } else {
-        return(incident_deaths_weekly)
+        return(filter_national(incident_deaths_weekly))
       }
     }
   }
