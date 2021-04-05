@@ -6,11 +6,17 @@ Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/epiforecasts/forecasthubutils
 BugReports: https://github.com/epiforecasts/forecasthubutils/issues
 RoxygenNote: 7.1.1
 Imports: 
+    data.table,
+    grates,
+    lubridate,
     magrittr
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
