@@ -6,13 +6,17 @@
 \usage{
 make_weekly(
   data,
+  value_cols = "value",
   weekstart = 7L,
   group_by = "location",
   exclude_incomplete = TRUE
 )
 }
 \arguments{
-\item{data}{A data frame containing a column called 'date' and one called 'value'}
+\item{data}{A data frame containing a column called 'date'}
+
+\item{value_cols}{character vector with the names of columns for which a
+weekly value shall be computed}
 
 \item{weekstart}{integer that indicates the start of the week. Default is 7 (Sunday)}
 
