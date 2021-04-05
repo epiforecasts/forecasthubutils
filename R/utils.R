@@ -55,15 +55,6 @@ make_weekly <- function(data,
   return(inc)
 }
 
-
-res <- res[, lapply(.SD, mean, na.rm = TRUE),
-           by = c(summarise_by),
-           .SDcols = colnames(res) %like%
-             "coverage|bias|sharpness|coverage_deviation|interval_score|overprediction|underprediction|aem|ae_point|relative_skill|scaled_rel_skill"]
-
-
-
-
 #' Find the Latest Target Weekday
 #'
 #' @param date A date, by default the current system date.
