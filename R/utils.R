@@ -51,7 +51,7 @@ make_weekly <- function(data,
     inc <- inc[n == 7]
   }
 
-  inc[, n := NULL]
+  inc[, `:=` (n = NULL, year_week = NULL)]
   return(inc)
 }
 
