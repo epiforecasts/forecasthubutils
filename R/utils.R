@@ -12,7 +12,9 @@ check_dir <- function(dir) {
 
 #' Make Incidence data weekly
 #'
-#' @param data A data frame containing a column called 'date' and one called 'value'
+#' @param data A data frame containing a column called 'date'
+#' @param value_cols character vector with the names of columns for which a
+#' weekly value shall be computed
 #' @param weekstart integer that indicates the start of the week. Default is 7 (Sunday)
 #' @param group_by A character vector with variables to group by
 #' @param exclude_incomplete exclude incomplete epiweeks (not equal to 7
@@ -31,6 +33,7 @@ check_dir <- function(dir) {
 #'
 #' computed <- make_weekly(df, group_by = "location")
 make_weekly <- function(data,
+                        value_cols = "value",
                         weekstart = 7L,
                         group_by = "location",
                         exclude_incomplete = TRUE) {
@@ -38,10 +41,10 @@ make_weekly <- function(data,
   inc <- as.data.table(data)[
     , year_week := as_yrwk(date, firstday = weekstart)
   ][
-    , .(value = sum(value, na.rm = TRUE),
-        n = .N,
-        target_end_date = max(as.Date(date))),
-    by = c(group_by, "year_week")
+    , c(lapply(.SD, sum, na.rm = TRUE),
+        .(target_end_date = max(as.Date(date)),
+          n = .N)),
+    .SDcols = value_cols, by = c(group_by, "year_week")
   ]
 
   if (exclude_incomplete) {
@@ -51,8 +54,6 @@ make_weekly <- function(data,
   inc[, `:=` (n = NULL, year_week = NULL)]
   return(inc)
 }
-
-
 
 #' Find the Latest Target Weekday
 #'
