@@ -23,7 +23,7 @@ check_dir <- function(dir) {
 #' @return A data frame grouped by week.
 #' @export
 #' @import data.table
-#' @importFrom grates as_yrwk
+#' @importFrom grates as_yearweek
 #' @examples
 #' df <- data.frame(value = 1:30,
 #'                  date = seq.Date(from = as.Date("2020-12-20"),
@@ -39,7 +39,7 @@ make_weekly <- function(data,
                         exclude_incomplete = TRUE) {
 
   inc <- as.data.table(data)[
-    , year_week := as_yrwk(date, firstday = weekstart)
+    , year_week := as_yearweek(date, firstday = weekstart)
   ][
     , c(lapply(.SD, sum, na.rm = TRUE),
         .(target_end_date = max(as.Date(date)),
